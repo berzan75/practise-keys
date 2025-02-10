@@ -1,0 +1,62 @@
+import pygame
+from time import *
+from pygame.locals import *
+
+pygame.init()
+screen=pygame.display.set_mode((600,600))
+player_x=300
+player_y=300
+
+keys=[False ,False ,False ,False]
+
+bg=pygame.image.load("back.jpg")
+plane=pygame.image.load("plane.png")
+
+image=pygame.transform.scale(bg,(600,600))
+Plane=pygame.transform.scale(plane,(70,70))
+
+while player_y < 600:
+    screen.blit(image, (0,0))
+    screen.blit(Plane,(player_x, player_y))
+    pygame.display.flip()
+
+    for event in pygame.event.get():
+        if event.type ==pygame.KEYDOWN:
+            if event.key ==K_UP:
+                keys[0]=True
+            if event.key == K_DOWN:
+                keys[1]=True
+            if event.key == K_LEFT:
+                keys[2]=True
+            if event.key == K_RIGHT:
+                keys[3] =True
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit (0)
+        if event.type ==pygame.KEYUP:
+            if event.key ==K_UP:
+                keys[0]=False
+            if event.key == K_DOWN:
+                keys[1]=False
+            if event.key == K_LEFT:
+                keys[2]=False
+            if event.key == K_RIGHT:
+                keys[3]=False
+
+    if keys[0]:
+        if player_y > 0:
+            player_y -= 8
+    if keys[1]:
+        if player_y < 540:
+            player_y += 8
+    if keys[2]:
+        if player_x > 0:
+            player_x -= 8
+    if keys[3]:
+        if player_x < 540:
+            player_x += 8
+
+    player_y +=4
+    sleep(0.07)
+
+print("game over")
